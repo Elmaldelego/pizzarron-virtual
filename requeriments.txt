@@ -1,0 +1,4 @@
+cloudinary 
+streamlit 
+sqlalchemy 
+pillow
