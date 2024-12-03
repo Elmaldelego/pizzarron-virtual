@@ -101,6 +101,34 @@ elif opcion == "Ver compromisos":
                 st.write(f"_{comentario_data.comentario}_")
                 st.markdown("---")
 
+# Sección para descargar comentarios
+elif opcion == "Descargar compromisos":
+    st.header("📥 Descargar compromisos")
+    comentarios = session.query(Comentario).all()
+    data = [{
+        "Nombre": c.nombre,
+        "Rol": c.rol,
+        "Comentario": c.comentario,
+        "Foto URL": c.foto_url,
+        "Hora": c.hora
+    } for c in comentarios]
+    
+    df = pd.DataFrame(data)
+    
+    # Botones de descarga
+    st.download_button(
+        label="Descargar como CSV",
+        data=df.to_csv(index=False),
+        file_name="comentarios.csv",
+        mime="text/csv"
+    )
+    
+    st.download_button(
+        label="Descargar como JSON",
+        data=df.to_json(orient='records', lines=True),
+        file_name="comentarios.json",
+        mime="application/json"
+    )
 # Agregar un fondo atractivo o modificar el tema
 st.markdown("""
     <style>
