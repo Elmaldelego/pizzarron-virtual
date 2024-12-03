@@ -7,13 +7,14 @@ from PIL import Image
 import cloudinary
 import cloudinary.uploader
 import os
-import pandas as pd  # Importar pandas para la exportación de datos
+import pandas as pd
+from io import BytesIO  # Para manejar imágenes en memoria
 
 # Configuración de Cloudinary
 cloudinary.config(
-    cloud_name="dpr44kuqn",  # Reemplaza con tu nombre de nube en Cloudinary
-    api_key="933457466638462",  # Reemplaza con tu API key
-    api_secret="8NcyXgjjlhUU4-zY0TDaw0HUQ_s"  # Reemplaza con tu API secret
+    cloud_name="dpr44kuqn",
+    api_key="933457466638462",
+    api_secret="8NcyXgjjlhUU4-zY0TDaw0HUQ_s"
 )
 
 # Configuración de la base de datos SQLite
@@ -34,10 +35,14 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Título de la app con estilo
-st.title("🍕¿Cómo puedo contribuir desde mi área en la cultura de calidad e inocuidad?. Mis compromisos:")
+st.title("🍕 Mis compromisos con la cultura de calidad e inocuidad - 2024")
 
-# Sidebar para seleccionar entre "Cargar comentario", "Ver comentarios" y "Descargar comentarios"
+# Sidebar con menú desplegable
 opcion = st.sidebar.selectbox("Selecciona una sección", ["Cargar compromiso", "Ver compromisos", "Descargar compromisos"], index=1)
+
+# Mostrar el código QR desde Cloudinary
+qr_url = "https://res.cloudinary.com/dpr44kuqn/image/upload/v1733234665/WhatsApp_Image_2024-12-02_at_6.16.46_PM_bpxuqr.jpg"  # Reemplaza con la URL de tu código QR
+st.sidebar.image(qr_url, caption="Escanea para más información", use_column_width=True)
 
 # Función para subir la foto a Cloudinary
 def subir_foto_a_cloudinary(file, nombre):
@@ -60,7 +65,7 @@ if opcion == "Cargar compromiso":
             foto = st.file_uploader("Sube tu foto", type=['jpg', 'png'])
         with col2:
             nombre = st.text_input("Nombre")
-            rol = st.text_input("Rol (e.g., Estudiante, Profesor)")
+            rol = st.text_input("Rol (e.g., Jefe, Cordinador,Operador)")
             comentario = st.text_area("Escribe tu compromiso", height=150)
         enviar = st.form_submit_button(label="Enviar ✨")
 
@@ -105,7 +110,6 @@ elif opcion == "Descargar compromisos":
     
     df = pd.DataFrame(data)
     
-    # Botones de descarga
     st.download_button(
         label="Descargar como CSV",
         data=df.to_csv(index=False),
