@@ -35,7 +35,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Título de la app con estilo
-st.title("🍕¿Cómo puedo contribuir desde mi área en la cultura de calidad e inocuidad?. Mis compromisos:")
+st.title("🍕¿Cómo puedo contribuir desde mi área en la calidad e inocuidad de los alimentos que comercializamos?. Mis compromisos:")
 
 # Sidebar con menú desplegable
 opcion = st.sidebar.selectbox("Selecciona una sección", ["Cargar compromiso", "Ver compromisos", "Descargar compromisos"], index=1)
