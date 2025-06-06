@@ -42,7 +42,7 @@ opcion = st.sidebar.selectbox("Selecciona una sección", ["Cargar compromiso", "
 
 # Mostrar el código QR desde Cloudinary
 qr_url = "https://res.cloudinary.com/dpr44kuqn/image/upload/v1733234665/WhatsApp_Image_2024-12-02_at_6.16.46_PM_bpxuqr.jpg"  # Reemplaza con la URL de tu código QR
-st.sidebar.image(qr_url, caption="Escanea para comentar tus compromisos", use_column_width=True)
+st.sidebar.image(qr_url, caption="Escanea para comentar tus compromisos", use_container_width=True)
 
 # Función para subir la foto a Cloudinary
 def subir_foto_a_cloudinary(file, nombre):
